@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licenciatura en Química - República Dominicana</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #00338d, #ce1126);
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="15" fill="%23ffffff10"/><circle cx="80" cy="80" r="20" fill="%23ffffff10"/><circle cx="50" cy="50" r="10" fill="%23ffffff10"/></svg>');
+            opacity: 0.2;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        h2 {
+            color: #00338d;
+            border-bottom: 2px solid #ce1126;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .tab-container {
+            margin-top: 20px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 15px;
+            background-color: #eee;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .tab:hover {
+            background-color: #ddd;
+        }
+        .tab.active {
+            background-color: #00338d;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .card {
+            flex: 1 1 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .universidad {
+            border-left: 5px solid #00338d;
+            padding-left: 15px;
+            margin: 15px 0;
+        }
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #ce1126;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .benefit {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .experiment {
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .job-sector {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .job-sector:hover {
+            background-color: #e0e0e0;
+        }
+        .job-details {
+            display: none;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #00338d;
+            color: white;
+            border-radius: 0 0 8px 8px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            .flex-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Modelo 3D simple */
+        .molecule-container {
+            perspective: 1000px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        .molecule {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 20s infinite linear;
+        }
+        .atom {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ce1126;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .atom:nth-child(1) {
+            transform: translate(-50%, -50%) translateZ(60px);
+            background-color: #ff5722;
+        }
+        .atom:nth-child(2) {
+            transform: translate(-50%, -50%) translateZ(-60px);
+            background-color: #2196f3;
+        }
+        .atom:nth-child(3) {
+            transform: translate(-50%, -50%) translateX(60px);
+            background-color: #4caf50;
+        }
+        .atom:nth-child(4) {
+            transform: translate(-50%, -50%) translateX(-60px);
+            background-color: #9c27b0;
+        }
+        .atom:nth-child(5) {
+            transform: translate(-50%, -50%) translateY(60px);
+            background-color: #ff9800;
+        }
+        .atom:nth-child(6) {
+            transform: translate(-50%, -50%) translateY(-60px);
+            background-color: #795548;
+        }
+        .bond {
+            position: absolute;
+            background-color: #555;
+            width: 5px;
+            height: 120px;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+        }
+        .bond:nth-child(7) {
+            transform: translate(-50%, -50%) rotateX(90deg);
+        }
+        .bond:nth-child(8) {
+            transform: translate(-50%, -50%) rotateY(90deg);
+        }
+        .bond:nth-child(9) {
+            transform: translate(-50%, -50%);
+        }
+        @keyframes rotate {
+            from { transform: rotateX(0) rotateY(0) rotateZ(0); }
+            to { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Licenciatura en Química</h1>
+            <p>Transformando la República Dominicana a través de la ciencia</p>
+        </header>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'introduccion')">Introducción</button>
+                <button class="tab" onclick="openTab(event, 'universidades')">Universidades</button>
+                <button class="tab" onclick="openTab(event, 'beneficios')">Beneficios</button>
+                <button class="tab" onclick="openTab(event, 'experimento')">Experimento</button>
+                <button class="tab" onclick="openTab(event, 'salidas')">Salidas Profesionales</button>
+                <button class="tab" onclick="openTab(event, 'requisitos')">Requisitos</button>
+                <button class="tab" onclick="openTab(event, 'historia')">Historia</button>
+            </div>
+            
+            <div id="introduccion" class="tab-content active">
+                <h2>¿Qué es la Química?</h2>
+                <div class="flex-container">
+                    <div>
+                        <p>La Química es la ciencia que estudia la composición, estructura, propiedades y transformaciones de la materia. Es fundamental para entender nuestro mundo y desarrollar nuevos productos y soluciones.</p>
+                        
+                        <h3>Ramas principales:</h3>
+                        <ul>
+                            <li><strong>Química Orgánica:</strong> Estudia los compuestos del carbono</li>
+                            <li><strong>Química Inorgánica:</strong> Estudia elementos y compuestos sin carbono</li>
+                            <li><strong>Química Analítica:</strong> Se enfoca en identificar y cuantificar sustancias</li>
+                            <li><strong>Química Física:</strong> Estudia los principios físicos de las reacciones</li>
+                            <li><strong>Bioquímica:</strong> Estudia procesos químicos en seres vivos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="molecule-container">
+                        <div class="molecule">
+                            <div class="atom"></div>
+                            <div class="atom"></div>
+                            <div class="atom"></div>
+                            <div class="atom"></div>
+                            <div class="atom"></div>
+                            <div class="atom"></div>
+                            <div class="bond"></div>
+                            <div class="bond"></div>
+                            <div class="bond"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Conceptos básicos de la Química</h3>
+                <div class="flex-container">
+                    <div class="card">
+                        <h4>Materia y sus estados</h4>
+                        <p>La materia es todo lo que ocupa espacio y tiene masa. Puede existir como sólido, líquido, gas o plasma.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Átomos y moléculas</h4>
+                        <p>Los átomos son las unidades básicas de la materia. Las moléculas son grupos de átomos unidos por enlaces químicos.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Reacciones químicas</h4>
+                        <p>Procesos en los que se reorganizan los átomos para formar nuevas sustancias con diferentes propiedades.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="universidades" class="tab-content">
+                <h2>Universidades en República Dominicana</h2>
+                
+                <div class="universidad">
+                    <h3>Universidad Autónoma de Santo Domingo (UASD)</h3>
+                    <p><strong>Facultad:</strong> Ciencias</p>
+                    <p><strong>Duración:</strong> 4 años (8 semestres)</p>
+                    <p><strong>Costo aproximado:</strong> RD$2,000-5,000 por semestre (matrícula)</p>
+                    <p><strong>Ventajas:</strong> Universidad pública con costos accesibles, programa bien establecido, buenos laboratorios.</p>
+                </div>
+                
+                <div class="universidad">
+                    <h3>Instituto Tecnológico de Santo Domingo (INTEC)</h3>
+                    <p><strong>Facultad:</strong> Ciencias Básicas y Ambientales</p>
+                    <p><strong>Duración:</strong> 4 años (12 trimestres)</p>
+                    <p><strong>Costo aproximado:</strong> RD$70,000-90,000 por trimestre</p>
+                    <p><strong>Ventajas:</strong> Alto prestigio, enfoque en investigación, convenios internacionales.</p>
+                </div>
+                
+                <div class="universidad">
+                    <h3>Universidad Nacional Pedro Henríquez Ureña (UNPHU)</h3>
+                    <p><strong>Facultad:</strong> Ciencias</p>
+                    <p><strong>Duración:</strong> 4 años (8 semestres)</p>
+                    <p><strong>Costo aproximado:</strong> RD$50,000-70,000 por semestre</p>
+                    <p><strong>Ventajas:</strong> Buenas instalaciones de laboratorio, enfoque profesional.</p>
+                </div>
+                
+                <div class="universidad">
+                    <h3>Pontificia Universidad Católica Madre y Maestra (PUCMM)</h3>
+                    <p><strong>Facultad:</strong> Ciencias y Humanidades</p>
+                    <p><strong>Duración:</strong> 4 años (8 semestres)</p>
+                    <p><strong>Costo aproximado:</strong> RD$60,000-80,000 por semestre</p>
+                    <p><strong>Ventajas:</strong> Prestigio académico, campus en Santiago y Santo Domingo.</p>
+                </div>
+                
+                <h3>Costos adicionales comunes</h3>
+                <ul>
+                    <li>Laboratorios: RD$5,000-15,000 por semestre</li>
+                    <li>Materiales y libros: RD$10,000-20,000 por semestre</li>
+                    <li>Inscripción inicial (en universidades privadas): RD$5,000-15,000</li>
+                </ul>
+                
+                <h3>Becas y financiamiento</h3>
+                <ul>
+                    <li>Becas nacionales del MESCyT</li>
+                    <li>Programas de becas institucionales</li>
+                    <li>Crédito educativo (Banco de Reservas)</li>
+                    <li>Programas de asistentes de investigación</li>
+                </ul>
+            </div>
+            
+            <div id="beneficios" class="tab-content">
+                <h2>Beneficios de estudiar Química</h2>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">1</div>
+                    <div>
+                        <h3>Versatilidad profesional</h3>
+                        <p>Podrás trabajar en múltiples sectores: farmacéutico, alimentario, cosmético, ambiental, educativo, y muchos más.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">2</div>
+                    <div>
+                        <h3>Contribución al desarrollo del país</h3>
+                        <p>Los químicos son fundamentales para el crecimiento de industrias clave para la economía dominicana.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">3</div>
+                    <div>
+                        <h3>Demanda laboral estable</h3>
+                        <p>La necesidad de químicos se mantiene constante en diversos sectores, ofreciendo estabilidad laboral.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">4</div>
+                    <div>
+                        <h3>Oportunidades de investigación</h3>
+                        <p>Posibilidad de participar en proyectos científicos nacionales e internacionales que expanden el conocimiento.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">5</div>
+                    <div>
+                        <h3>Proyección internacional</h3>
+                        <p>La formación en química es reconocida globalmente, facilitando estudios de postgrado y trabajo en el extranjero.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">6</div>
+                    <div>
+                        <h3>Desarrollo de habilidades transferibles</h3>
+                        <p>Análisis de datos, resolución de problemas, trabajo metódico y pensamiento crítico aplicables a muchas profesiones.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="experimento" class="tab-content">
+                <h2>Experimentos Químicos</h2>
+                
+                <div class="experiment">
+                    <h3>Experimento 1: Purificador de agua casero</h3>
+                    
+                    <h3>Materiales:</h3>
+                    <ul>
+                        <li>Botella de plástico grande</li>
+                        <li>Carbón activado (disponible en farmacias)</li>
+                        <li>Arena fina limpia</li>
+                        <li>Grava o piedras pequeñas</li>
+                        <li>Algodón o tela de algodón</li>
+                        <li>Agua turbia (para demostración)</li>
+                        <li>Recipiente para recoger el agua filtrada</li>
+                        <li>Tijeras</li>
+                    </ul>
+                    
+                    <h3>Procedimiento:</h3>
+                    <ol>
+                        <li>Cortar la base de la botella y voltearla (el pico hacia abajo)</li>
+                        <li>Colocar algodón en el pico de la botella</li>
+                        <li>Agregar una capa de carbón activado (2-3 cm)</li>
+                        <li>Agregar una capa de arena fina (5-7 cm)</li>
+                        <li>Agregar una capa de grava (3-5 cm)</li>
+                        <li>Verter lentamente el agua turbia</li>
+                        <li>Recoger el agua filtrada y observar la diferencia</li>
+                    </ol>
+                    
+                    <h3>Explicación científica:</h3>
+                    <p>Este filtro demuestra varios principios químicos y físicos:</p>
+                    <ul>
+                        <li><strong>Adsorción:</strong> El carbón activado tiene una estructura porosa con gran superficie que atrapa contaminantes y químicos.</li>
+                        <li><strong>Filtración mecánica:</strong> La arena y grava atrapan partículas de diferentes tamaños.</li>
+                        <li><strong>Purificación física:</strong> Las impurezas visibles quedan atrapadas en las distintas capas.</li>
+                    </ul>
+                    
+                    <h3>Beneficio comunitario:</h3>
+                    <p>Este sistema simple puede ayudar a mejorar la calidad del agua en situaciones de emergencia o en comunidades con acceso limitado a agua potable. Es una solución química accesible que ilustra cómo la ciencia puede resolver problemas cotidianos.</p>
+                    
+                    <p><strong>Nota:</strong> Este filtro reduce partículas y algunos contaminantes, pero no elimina todos los patógenos. Para obtener agua completamente potable, se recomienda hervirla después de filtrarla.</p>
+                </div>
+                
+                <div class="experiment">
+                    <h3>Experimento 2: Jabón a partir de aceite usado y sosa cáustica</h3>
+                    
+                    <h3>Materiales:</h3>
+                    <ul>
+                        <li>500 ml de aceite de cocina usado y filtrado</li>
+                        <li>65 g de sosa cáustica (NaOH) - Precaución: Corrosivo</li>
+                        <li>150 ml de agua destilada</li>
+                        <li>Termómetro</li>
+                        <li>Guantes de goma resistentes</li>
+                        <li>Gafas de protección</li>
+                        <li>Moldes de silicona o tetrabrik vacío y limpio</li>
+                        <li>Recipientes de vidrio o acero inoxidable</li>
+                        <li>Batidora eléctrica (opcional)</li>
+                        <li>Esencias o aceites esenciales (opcional para aroma)</li>
+                    </ul>
+                    
+                    <h3>Procedimiento:</h3>
+                    <ol>
+                        <li>Usar guantes y gafas de protección durante todo el proceso</li>
+                        <li>Calentar el aceite usado hasta aproximadamente 40°C</li>
+                        <li>En un recipiente resistente, disolver lentamente la sosa cáustica en agua destilada fría (siempre añadir la sosa al agua, nunca al revés)</li>
+                        <li>Dejar enfriar la solución de sosa hasta 40°C aproximadamente</li>
+                        <li>Añadir gradualmente la solución de sosa al aceite mientras se remueve constantemente</li>
+                        <li>Batir la mezcla hasta obtener consistencia de pudin (puede tomar 15-30 minutos a mano o 5-10 con batidora)</li>
+                        <li>Añadir esencias si se desea (2-3 ml)</li>
+                        <li>Verter la mezcla en los moldes</li>
+                        <li>Cubrir con una toalla y dejar reposar en lugar seco durante 24-48 horas</li>
+                        <li>Desmoldar y dejar curar durante 4-6 semanas en lugar ventilado</li>
+                    </ol>
+                    
+                    <h3>Explicación científica:</h3>
+                    <p>Este experimento demuestra el proceso de saponificación, una reacción química fundamental:</p>
+                    <ul>
+                        <li><strong>Saponificación:</strong> Reacción entre los triglicéridos (grasas del aceite) y la base (NaOH) que produce glicerina y sales de ácidos grasos (jabón)</li>
+                        <li><strong>Reacción exotérmica:</strong> El proceso libera calor</li>
+                        <li><strong>Hidrólisis alcalina:</strong> Ruptura de los enlaces éster en las grasas</li>
+                        <li><strong>Propiedades anfipáticas:</strong> El jabón resultante contiene partes hidrofóbicas (que atrapan la grasa) e hidrofílicas (que interactúan con el agua)</li>
+                    </ul>
+                    
+                    <h3>Beneficio ambiental y económico:</h3>
+                    <p>Este experimento permite reciclar aceite usado que normalmente contaminaría el agua, transformándolo en un producto útil. Cada litro de aceite vertido por el desagüe puede contaminar hasta 1.000 litros de agua. Además, permite ahorrar dinero y reducir residuos.</p>
+                    
+                    <p><strong>Precaución:</strong> La sosa cáustica es altamente corrosiva. Trabajar siempre con elementos de protección, en área bien ventilada y mantener alejados a niños y mascotas. El jabón debe curarse completamente antes de usarse para garantizar que toda la sosa se haya neutralizado.</p>
+                </div>
+            </div>
+            
+            <div id="salidas" class="tab-content">
+                <h2>Salidas Profesionales</h2>
+                
+                <div class="job-sector" onclick="toggleJobDetails(this)">
+                    <h3>Industria Farmacéutica</h3>
+                    <div class="job-details">
+                        <p>El sector farmacéutico dominicano emplea químicos para:</p>
+                        <ul>
+                            <li>Control de calidad de medicamentos</li>
+                            <li>Investigación y desarrollo de nuevos fármacos</li>
+                            <li>Análisis de materias primas</li>
+                            <li>Validación de procesos</li>
+                            <li>Registro sanitario</li>
+                        </ul>
+                        <p><strong>Empresas destacadas:</strong> Grupo Ethical, Laboratorios Sued, Laboratorios Magnachem</p>
+                    </div>
+                </div>
+                
+                <div class="job-sector" onclick="toggleJobDetails(this)">
+                    <h3>Industria Alimentaria</h3>
+                    <div class="job-details">
+                        <p>Los químicos son esenciales en el sector alimentario para:</p>
+                        <ul>
+                            <li>Control de calidad de alimentos y bebidas</li>
+                            <li>Desarrollo de nuevos productos</li>
+                            <li>Análisis nutricional</li>
+                            <li>Seguridad alimentaria</li>
+                            <li>Mejora de procesos</li>
+                        </ul>
+                        <p><strong>Empresas destacadas:</strong> Induveca, Cervecería Nacional Dominicana, Nestlé Dominicana</p>
+                    </div>
+                </div>
+                
+                <div class="job-sector" onclick="toggleJobDetails(this)">
+                    <h3>Sector Ambiental</h3>
+                    <div class="job-details">
+                        <p>En el área ambiental, los químicos trabajan en:</p>
+                        <ul>
+                            <li>Análisis de contaminantes en agua, suelo y aire</li>
+                            <li>Tratamiento de aguas residuales</li>
+                            <li>Gestión de residuos industriales</li>
+                            <li>Evaluación de impacto ambiental</li>
+                            <li>Asesoría en cumplimiento normativo</li>
+                        </ul>
+                        <p><strong>Sectores principales:</strong> Minería, zonas francas, turismo, gobierno</p>
+                    </div>
+                </div>
+                
+                <div class="job-sector" onclick="toggleJobDetails(this)">
+                    <h3>Laboratorios de Análisis</h3>
+                    <div class="job-details">
+                        <p>Los químicos pueden trabajar en diversos laboratorios:</p>
+                        <ul>
+                            <li>Laboratorios clínicos (análisis de sangre, orina)</li>
+                            <li>Laboratorios de toxicología</li>
+                            <li>Laboratorios forenses</li>
+                            <li>Laboratorios de control de calidad industrial</li>
+                            <li>Laboratorios de referencia</li>
+                        </ul>
+                        <p><strong>Instituciones:</strong> Laboratorio Nacional Dr. Defilló, Referencia, AMADITA</p>
+                    </div>
+                </div>
+                
+                <div class="job-sector" onclick="toggleJobDetails(this)">
+                    <h3>Educación e Investigación</h3>
+                    <div class="job-details">
+                        <p>Oportunidades académicas para químicos:</p>
+                        <ul>
+                            <li>Docencia universitaria</li>
+                            <li>Investigación científica</li>
+                            <li>Divulgación científica</li>
+                            <li>Gestión de laboratorios educativos</li>
+                            <li>Desarrollo de materiales didácticos</li>
+                        </ul>
+                        <p><strong>Instituciones:</strong> Universidades, Instituto Dominicano de Investigaciones Agrícolas y Forestales (IDIAF), Academia de Ciencias</p>
+                    </div>
+                </div>
+                
+                <div class="job-sector" onclick="toggleJobDetails(this)">
+                    <h3>Sector Gubernamental</h3>
+                    <div class="job-details">
+                        <p>Oportunidades en el sector público:</p>
+                        <ul>
+                            <li>Ministerio de Medio Ambiente y Recursos Naturales</li>
+                            <li>Ministerio de Salud Pública</li>
+                            <li>Instituto Nacional de Aguas Potables y Alcantarillados (INAPA)</li>
+                            <li>Dirección General de Medicamentos, Alimentos y Productos Sanitarios</li>
+                            <li>Instituto de Innovación en Biotecnología e Industria (IIBI)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="requisitos" class="tab-content">
+                <h2>Requisitos para estudiar Química</h2>
+                
+                <h3>Requisitos académicos</h3>
+                <ul>
+                    <li>Bachillerato completo</li>
+                    <li>Pruebas Nacionales aprobadas</li>
+                    <li>Buen rendimiento en ciencias y matemáticas</li>
+                    <li>En algunas universidades, pruebas de admisión específicas</li>
+                </ul>
+                
+                <h3>Documentación requerida</h3>
+                <ul>
+                    <li>Certificado de bachillerato</li>
+                    <li>Record de notas de bachillerato</li>
+                    <li>Cédula de identidad/pasaporte</li>
+                    <li>Acta de nacimiento</li>
+                    <li>Certificado médico</li>
+                    <li>Fotos recientes</li>
+                </ul>
+                
+                <h3>Perfil recomendado</h3>
+                <div class="flex-container">
+                    <div class="card">
+                        <h4>Aptitudes</h4>
+                        <ul>
+                            <li>Capacidad analítica</li>
+                            <li>Habilidad para resolver problemas</li>
+                            <li>Destreza matemática</li>
+                            <li>Observación detallada</li>
+                            <li>Organización y meticulosidad</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Intereses</h4>
+                        <ul>
+                            <li>Curiosidad científica</li>
+                            <li>Interés por la experimentación</li>
+                            <li>Gusto por el trabajo de laboratorio</li>
+                            <li>Interés por fenómenos naturales</li>
+                            <li>Deseo de resolver problemas prácticos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Preparación previa recomendada</h3>
+                <ul>
+                    <li>Fortalecer conocimientos en química, física y matemáticas</li>
+                    <li>Participar en ferias de ciencias o concursos científicos</li>
+                    <li>Familiarizarse con el trabajo de laboratorio</li>
+                    <li>Practicar la resolución de problemas</li>
+                    <li>Desarrollar habilidades de investigación</li>
+                </ul>
+            </div>
+            
+            <div id="historia" class="tab-content">
+                <h2>Historia de la Química</h2>
+                
+                <h3>Desarrollo global de la Química</h3>
+                <p>La química moderna tiene sus raíces en la alquimia antigua, pero fue en el siglo XVIII cuando se estableció como ciencia con los trabajos de Antoine Lavoisier, considerado el padre de la química moderna. En los siglos XIX y XX, la química experimentó avances extraordinarios con el descubrimiento de nuevos elementos, la teoría atómica, y el desarrollo de la química orgánica e inorgánica.</p>
+                
+                <h3>La Química en República Dominicana</h3>
+                <p>En República Dominicana, el desarrollo formal de la química como disciplina comenzó en la década de 1940. Algunos hitos importantes incluyen:</p>
+                <ul>
+                    <li><strong>1940s:</strong> Establecimiento de los primeros laboratorios de análisis químico</li>
+                    <li><strong>1950s:</strong> Inclusión de la química en los programas de educación secundaria</li>
+                    <li><strong>1960s:</strong> Creación de las primeras carreras universitarias en química</li>
+                    <li><strong>1980s:</strong> Expansión de la industria química y farmacéutica dominicana</li>
+                    <li><strong>2000-presente:</strong> Desarrollo de investigación química aplicada y colaboraciones internacionales</li>
+                </ul>
+                
+                <h3>Figuras destacadas dominicanas</h3>
+                <p>Entre los profesionales que han contribuido al desarrollo de la química en República Dominicana se encuentran:</p>
+                <ul>
+                    <li>Dr. Sergio Bencosme - Pionero en investigación bioquímica</li>
+                    <li>Dra. Celeste Sánchez - Contribuciones a la química analítica</li>
+                    <li>Dr. José Almonte - Investigación en química ambiental</li>
+                </ul>
+                
+                <h3>Logros recientes</h3>
+                <p>En las últimas décadas, la química dominicana ha logrado avances significativos en áreas como:</p>
+                <ul>
+                    <li>Desarrollo de productos farmacéuticos</li>
+                    <li>Investigación en recursos naturales</li>
+                    <li>Tecnologías para el tratamiento de aguas</li>
+                    <li>Métodos analíticos para control de calidad</li>
+                    <li>Estudios ambientales</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Presentación preparada para la Feria de Profesiones - República Dominicana</p>
+            <p>La química no es solo una carrera, es una forma de entender y transformar el mundo</p>
+        </footer>
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+            }
+            
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+        
+        function toggleJobDetails(element) {
+            var details = element.querySelector('.job-details');
+            if (details.style.display === 'block') {
+                details.style.display = 'none';
+            } else {
+                details.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
